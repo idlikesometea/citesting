@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 
 /**
  * 
+ * API Routes
  * 
  */
-
+$route['api/v1/users/(:any)'] = 'api/v1/users/index/$1';
