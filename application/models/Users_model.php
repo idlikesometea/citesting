@@ -40,8 +40,39 @@ class Users_model extends CI_Model
 		return $user['id'];
 	}
 
-	public function updateUser($id, $user) {
-		return 3;
+	public function updateUser($id, $userInfo) {
+		$updated = false;
+		foreach($this->users as $key => $user) {
+			if ($user['id'] === $id) {
+				$data = $userInfo;
+				$data['id'] = $id;
+				$this->users[$key] = $data;
+				$updated = true;
+				break;
+			}
+		}
+
+		if (!$updated) {
+			throw new Exception("User with id ${id} not found.", 404);
+		}
+	}
+
+	public function deleteUser($id) {
+		$deleted = false;
+		$users = [];
+		foreach($this->users as $user) {
+			if ($user['id'] === $id) {
+				$deleted = true;
+			} else {
+				$users[] = $user;
+			}
+		}
+		
+		$this->users = $users;
+
+		if (!$deleted) {
+			throw new Exception("User with id ${id} not found.", 404);
+		}
 	}
 }
 

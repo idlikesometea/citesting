@@ -11,6 +11,30 @@ class Api_utils_model extends CI_Model
 	}
 
 	/**
+	 * Set headers
+	 *
+	 * @param array $allowedMethods
+	 * @param string $method
+	 * @param bool $authentication
+	 * @throws string Not allowed method 
+	 **/
+	public function setHeaders($allowedMethods, $method)
+	{
+		$methods = implode($allowedMethods);
+		if (!in_array($method, $allowedMethods)) {
+			throw new Exception(
+				"Method ${method} not allowed. List of allowed methods: ${methods}", 
+				405
+			);
+		}
+
+		header('Access-Control-Allow-Origin: *');
+		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
+		header("Access-Control-Allow-Methods: ${methods}");
+		header("Allow: ${methods}");
+	}
+
+	/**
 	 * jsonResponse
 	 *
 	 * @param mixed $data
@@ -19,29 +43,25 @@ class Api_utils_model extends CI_Model
 	public function jsonResponse($data, int $http_response_code)
 	{
 	    http_response_code($http_response_code);
+
 		if (in_array($http_response_code, $this->successCodes)) {
-			echo json_encode(['data' => $data]);
+			$response = json_encode(['data' => $data]);
 		} else {
-			echo json_encode(['message' => $data]);
+			$response = json_encode(['message' => $data]);
 		}
+
+		exit($response);
 	}
 
 	/**
-	 * Validate method
+	 * Form validation error
 	 *
-	 * @param string $method
-	 * @param array $allowedMethods
-	 * @throws Exception
+	 * @throws string Form error message
 	 **/
-	public function validateMethod(string $method, array $allowedMethods)
+	public function formValidationError()
 	{
-		if (!in_array($method, $allowedMethods)) {
-			$methodsList = implode(',', $allowedMethods);
-			throw new Exception(
-				"Invalid method found: ${method}. Allowed methods are: ${methodsList}", 
-				400
-			);
-		}
+		$errorArray = $this->form_validation->error_array();
+		throw new Exception(reset($errorArray));
 	}
 }
 
