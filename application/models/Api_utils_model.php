@@ -18,9 +18,9 @@ class Api_utils_model extends CI_Model
 	 * @param bool $authentication
 	 * @throws string Not allowed method 
 	 **/
-	public function setHeaders($allowedMethods, $method)
+	public function setHeaders(array $allowedMethods, string $method, bool $authentication = false)
 	{
-		$methods = implode($allowedMethods);
+		$methods = implode(', ', $allowedMethods);
 		if (!in_array($method, $allowedMethods)) {
 			throw new Exception(
 				"Method ${method} not allowed. List of allowed methods: ${methods}", 
@@ -36,21 +36,29 @@ class Api_utils_model extends CI_Model
 
 	/**
 	 * jsonResponse
+	 * 
+	 * Returns JSON with success data or error message
 	 *
 	 * @param mixed $data
-	 * @param int $http_response_code
+	 * @param int $httpResponseCode
 	 **/
-	public function jsonResponse($data, int $http_response_code)
+	public function jsonResponse($data, int $httpResponseCode)
 	{
-	    http_response_code($http_response_code);
+	    http_response_code($httpResponseCode);
 
-		if (in_array($http_response_code, $this->successCodes)) {
+		if (in_array($httpResponseCode, $this->successCodes)) {
 			$response = ['data' => $data];
 		} else {
 			$response = ['message' => $data];
 		}
 
-		echo json_encode($response);
+		$response = json_encode($response);
+
+		if (json_encode($response) !== null) {
+			echo $response;
+		} else {
+			throw new Exception('Malformed data structure.', 500);
+		}
 	}
 
 	/**
@@ -61,7 +69,8 @@ class Api_utils_model extends CI_Model
 	public function formValidationError()
 	{
 		$errorArray = $this->form_validation->error_array();
-		throw new Exception(reset($errorArray));
+		$errorMessage = reset($errorArray) ?: 'There was an unkown error in your request';
+		throw new Exception($errorMessage, 500);
 	}
 }
 

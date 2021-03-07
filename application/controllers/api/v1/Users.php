@@ -5,9 +5,9 @@ include_once APPPATH . 'controllers/BaseApi.php';
 include_once APPPATH . 'models/interfaces/Crud_interface.php';
 
 use Api\BaseApi as Api;
-use Interfaces\iCRUD;
+use Interfaces\iHttpMethods;
 
-final class Users extends Api implements iCRUD
+final class Users extends Api implements iHttpMethods
 {
 
 	public function __construct()
@@ -20,39 +20,27 @@ final class Users extends Api implements iCRUD
 	public function index($id = null)
 	{
 		try {
-			$this->setAllowedMethods();
-			$httpRequestMethod = $this->getMethod();
-			switch ($httpRequestMethod) {
-				case 'GET':
-					$this->get($id);
-					break;
-				case 'POST':
-					if ($id)
-						$this->update($id);
-					else
-						$this->create();
-					break;
-				case 'DELETE':
-					$this->delete($id);
-					break;
-				default:
-					throw new Exception("Http method not found.", 400);
-					break;
-			}
+			$this->prepareRequest();
+			$requestMethod = $this->getRequestMethod(true);
+			$this->{$requestMethod}($id);
 		} catch (Throwable $th) {
-			$http_error_code = $th->getCode() ?: 400;
-			$this->response($th->getMessage(), $http_error_code);
+			$errorCode = $th->getCode() ?: 400;
+			$this->response($th->getMessage(), $errorCode);
 		}
 	}
 
 	public function get(int $id = null)
 	{
-		$users = $this->users->getUsers($id);
+		$filters = $this->getRequestParams();
+		$users = $this->users->getUsers($id, $filters);
 		$this->response($users);
 	}
 
-	public function create()
+	public function post()
 	{
+		$params = $this->getRequestParams();
+		print_r($params);
+		exit;
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
 		$this->form_validation->set_rules('age', 'Age', 'required');
@@ -66,7 +54,7 @@ final class Users extends Api implements iCRUD
 		}
 	}
 
-	public function update(int $id)
+	public function put(int $id)
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');

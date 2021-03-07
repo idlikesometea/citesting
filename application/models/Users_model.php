@@ -5,10 +5,10 @@ class Users_model extends CI_Model
 {
 
 	public $users = [
-		['id' => 1, 'name' => 'John', 'lastName' => 'Riddle', 'age' => 30, 'email' => 'example@mail.com'],
-		['id' => 2, 'name' => 'Arthur', 'lastName' => 'Clark', 'age' => 45, 'email' => 'example2@mail.com'],
-		['id' => 3, 'name' => 'Louis', 'lastName' => 'Smith', 'age' => 19, 'email' => 'example3@mail.com'],
-		['id' => 4, 'name' => 'Jules', 'lastName' => 'Robertson', 'age' => 23, 'email' => 'example4@mail.com']
+		['id' => 1, 'name' => 'John', 'lastName' => 'Riddle', 'age' => 30, 'email' => 'example@mail.com', 'type' => 'internal'],
+		['id' => 2, 'name' => 'Arthur', 'lastName' => 'Clark', 'age' => 45, 'email' => 'example2@mail.com', 'type' => 'external'],
+		['id' => 3, 'name' => 'Louis', 'lastName' => 'Smith', 'age' => 19, 'email' => 'example3@mail.com', 'type' => 'internal'],
+		['id' => 4, 'name' => 'Jules', 'lastName' => 'Robertson', 'age' => 23, 'email' => 'example4@mail.com', 'type' => 'external']
 	];
 
 	public function __construct()
@@ -16,10 +16,10 @@ class Users_model extends CI_Model
 		parent::__construct();
 	}
 
-	public function getUsers(int $userId = null)
+	public function getUsers(int $userId = null, $filters = [])
 	{
+		$data = [];
 		if ($userId) {
-			$data = [];
 			foreach ($this->users as $user) {
 				if ($user['id'] === $userId) {
 					$data = $user;
@@ -30,8 +30,26 @@ class Users_model extends CI_Model
 				throw new Exception("User with id ${userId} not found", 404);
 			}
 			return $data;
+		} else {
+			foreach ($this->users as $user) {
+				if (!$filters || $this->inFilter($filters, $user)) {
+					$data[] = $user;
+				}
+			}
 		}
-		return $this->users;
+
+		return $data;
+	}
+
+	private function inFilter(array $filters, $user) {
+		$inFilter = false;
+		foreach ($filters as $filter => $value) {
+			if ($user[$filter] === $value) {
+				$inFilter = true;
+			}
+		}
+
+		return $inFilter;
 	}
 
 	public function createUser($user) {
