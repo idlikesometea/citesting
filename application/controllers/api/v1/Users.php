@@ -7,7 +7,7 @@ include_once APPPATH . 'models/interfaces/Crud_interface.php';
 use Api\BaseApi as Api;
 use Interfaces\iCRUD;
 
-class Users extends Api implements iCRUD
+final class Users extends Api implements iCRUD
 {
 
 	public function __construct()
