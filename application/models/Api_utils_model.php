@@ -45,12 +45,12 @@ class Api_utils_model extends CI_Model
 	    http_response_code($http_response_code);
 
 		if (in_array($http_response_code, $this->successCodes)) {
-			$response = json_encode(['data' => $data]);
+			$response = ['data' => $data];
 		} else {
-			$response = json_encode(['message' => $data]);
+			$response = ['message' => $data];
 		}
 
-		exit($response);
+		echo json_encode($response);
 	}
 
 	/**

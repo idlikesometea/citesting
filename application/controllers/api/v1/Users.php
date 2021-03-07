@@ -12,7 +12,6 @@ final class Users extends Api implements iCRUD
 
 	public function __construct()
 	{
-		$this->setAllowedMethods();
 		parent::__construct();
 		$this->load->model('users_model', 'users');
 		$this->load->library('form_validation');
@@ -21,7 +20,9 @@ final class Users extends Api implements iCRUD
 	public function index($id = null)
 	{
 		try {
-			switch ($this->method) {
+			$this->setAllowedMethods();
+			$httpRequestMethod = $this->getMethod();
+			switch ($httpRequestMethod) {
 				case 'GET':
 					$this->get($id);
 					break;
@@ -84,7 +85,7 @@ final class Users extends Api implements iCRUD
 	public function delete(int $id)
 	{
 		$this->users->deleteUser($id);
-		$this->response([], 204);
+		$this->response([], 202);
 	}
 }
 

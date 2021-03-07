@@ -2,21 +2,19 @@
 namespace Api;
 
 include_once APPPATH . 'models/interfaces/Api_interface.php';
-use Throwable;
 use Interfaces\iApi;
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class BaseApi extends \CI_Controller implements iApi
 {
-	protected $method;
+	private $method;
 	private $allowedMethods;
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('api_utils_model', 'utils');
-		$this->setRequest();
 	}
 
 	/**
@@ -27,20 +25,37 @@ class BaseApi extends \CI_Controller implements iApi
 	public function setAllowedMethods($methods = [])
 	{
 		$this->allowedMethods = $methods ?: ['GET', 'POST', 'DELETE'];
+		$this->setMethod();
+		$this->utils->setHeaders($this->allowedMethods, $this->method);
 	}
 
 	/**
-	 * Set incoming request
+	 * Get allowed HTTP methods
 	 *
+	 * @return array $http_methods
 	 **/
-	public function setRequest()
+	public function getAllowedMethods()
 	{
-		try {
-			$this->method = $this->input->server('REQUEST_METHOD');
-			$this->utils->setHeaders($this->allowedMethods, $this->method);
-		} catch(Throwable $th) {
-			$this->response($th->getMessage(), $th->getCode());
-		}
+		return $this->allowedMethods;
+	}
+
+	/**
+	 * Set incoming request method
+	 * 
+	 **/
+	public function setMethod()
+	{
+		$this->method = $this->input->server('REQUEST_METHOD');
+	}
+
+	/**
+	 * Get incoming request method
+	 * 
+	 * @return string HTTP request method
+	 **/
+	public function getMethod()
+	{
+		return $this->method;
 	}
 
 	/**
