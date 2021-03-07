@@ -91,7 +91,8 @@ class BaseApi extends \CI_Controller implements iApi
 				break;
 			case 'PUT':
 			case 'DELETE':
-				parse_str(file_get_contents("php://input"),$var_array);
+				$params = file_get_contents("php://input");
+				$this->requestParams = json_decode($params, true);
 				break;
 			default:
 				break;

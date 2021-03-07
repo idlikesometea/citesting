@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 include_once APPPATH . 'controllers/BaseApi.php';
-include_once APPPATH . 'models/interfaces/Crud_interface.php';
+include_once APPPATH . 'models/interfaces/HttpMethods_interface.php';
 
 use Api\BaseApi as Api;
 use Interfaces\iHttpMethods;
@@ -38,8 +38,9 @@ final class Users extends Api implements iHttpMethods
 
 	public function post()
 	{
-		$params = $this->getRequestParams();
-		print_r($params);
+		$data = $this->getRequestParams();
+		$this->form_validation->set_data($data);
+		echo json_encode($data);
 		exit;
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
@@ -56,6 +57,8 @@ final class Users extends Api implements iHttpMethods
 
 	public function put(int $id)
 	{
+		$data = $this->getRequestParams();
+		$this->form_validation->set_data($data);
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
 		$this->form_validation->set_rules('age', 'Age', 'required');
