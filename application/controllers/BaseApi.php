@@ -18,7 +18,7 @@ class BaseApi extends \CI_Controller implements iApi
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('api_utils_model', 'utils');
+		$this->load->model('api_model', 'utils');
 		$this->load->library('form_validation');
 	}
 
@@ -74,7 +74,7 @@ class BaseApi extends \CI_Controller implements iApi
 	 **/
 	public function getRequestMethod(bool $toLower = false): string
 	{
-		return $toLower ? strtolower($this->method) : $toLower;
+		return $toLower ? strtolower($this->method) : $this->method;
 	}
 
 	/**

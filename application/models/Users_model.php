@@ -3,8 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Users_model extends CI_Model
 {
-
-	public $users = [
+	private $users = [
 		['id' => 1, 'name' => 'John', 'lastName' => 'Riddle', 'age' => 30, 'email' => 'example@mail.com', 'type' => 'internal'],
 		['id' => 2, 'name' => 'Arthur', 'lastName' => 'Clark', 'age' => 45, 'email' => 'example2@mail.com', 'type' => 'external'],
 		['id' => 3, 'name' => 'Louis', 'lastName' => 'Smith', 'age' => 19, 'email' => 'example3@mail.com', 'type' => 'internal'],
@@ -99,6 +98,7 @@ class Users_model extends CI_Model
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
 		$this->form_validation->set_rules('age', 'Age', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
 	}
 }
 

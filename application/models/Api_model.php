@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Api_utils_model extends CI_Model
+class Api_model extends CI_Model
 {
 	private $successCodes = [200, 201, 202, 203];
 
