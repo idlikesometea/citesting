@@ -14,7 +14,6 @@ final class Users extends Api implements iHttpMethods
 	{
 		parent::__construct();
 		$this->load->model('users_model', 'users');
-		$this->load->library('form_validation');
 	}
 
 	public function index($id = null)
@@ -40,13 +39,9 @@ final class Users extends Api implements iHttpMethods
 	{
 		$data = $this->getRequestParams();
 		$this->form_validation->set_data($data);
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('lastName', 'Last name', 'required');
-		$this->form_validation->set_rules('age', 'Age', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->users->setValidations();
 		if ($this->form_validation->run()) {
-			$user = $this->input->post();
-			$id = $this->users->createUser($user);
+			$id = $this->users->createUser($data);
 			$this->response(['id' => $id], 201);
 		} else {
 			$this->utils->formValidationError();
@@ -57,13 +52,9 @@ final class Users extends Api implements iHttpMethods
 	{
 		$data = $this->getRequestParams();
 		$this->form_validation->set_data($data);
-		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('lastName', 'Last name', 'required');
-		$this->form_validation->set_rules('age', 'Age', 'required');
-		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->users->setValidations();
 		if ($this->form_validation->run()) {
-			$user = $this->input->post();
-			$this->users->updateUser($id, $user);
+			$this->users->updateUser($id, $data);
 			$this->response([], 202);
 		} else {
 			$this->utils->formValidationError();

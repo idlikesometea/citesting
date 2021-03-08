@@ -19,6 +19,7 @@ class BaseApi extends \CI_Controller implements iApi
 	{
 		parent::__construct();
 		$this->load->model('api_utils_model', 'utils');
+		$this->load->library('form_validation');
 	}
 
 	/**
@@ -28,7 +29,7 @@ class BaseApi extends \CI_Controller implements iApi
 	 *
 	 * @param array $methods array of allowed methods for this instance
 	 **/
-	public function prepareRequest($methods = [])
+	public function prepareRequest(array $methods = [])
 	{
 		$this->setAllowedMethods($methods); 
 		$this->setRequestMethod();
@@ -51,7 +52,7 @@ class BaseApi extends \CI_Controller implements iApi
 	 *
 	 * @return array $http_methods
 	 **/
-	public function getAllowedMethods()
+	public function getAllowedMethods(): array
 	{
 		return $this->allowedMethods;
 	}
@@ -71,7 +72,7 @@ class BaseApi extends \CI_Controller implements iApi
 	 * @param bool $toLower returns method in lowercase.
 	 * @return string HTTP request method
 	 **/
-	public function getRequestMethod($toLower = false)
+	public function getRequestMethod(bool $toLower = false): string
 	{
 		return $toLower ? strtolower($this->method) : $toLower;
 	}
@@ -102,9 +103,9 @@ class BaseApi extends \CI_Controller implements iApi
 	/**
 	 * Get request params
 	 *
-	 * @return array $body Request body parameters
+	 * @return array $body Associative array of request body parameters
 	 **/
-	public function getRequestParams()
+	public function getRequestParams(): array
 	{
 		return $this->requestParams;
 	}

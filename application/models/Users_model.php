@@ -92,6 +92,14 @@ class Users_model extends CI_Model
 			throw new Exception("User with id ${id} not found.", 404);
 		}
 	}
+
+	public function setValidations()
+	{
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('lastName', 'Last name', 'required');
+		$this->form_validation->set_rules('age', 'Age', 'required');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+	}
 }
 
 /* End of file Users_model.php */
