@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="CodeIgniter Application Test Suite" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.029643">
-    <testsuite name="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Welcome_test.php" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.029643">
-      <testcase name="test_index" class="Welcome_test" classname="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Welcome_test.php" line="13" assertions="1" time="0.011760"/>
-      <testcase name="test_method_404" class="Welcome_test" classname="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Welcome_test.php" line="19" assertions="1" time="0.010246"/>
-      <testcase name="test_APPPATH" class="Welcome_test" classname="Welcome_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Welcome_test.php" line="25" assertions="1" time="0.007637"/>
+  <testsuite name="CodeIgniter Application Test Suite" tests="19" assertions="22" errors="0" warnings="0" failures="0" skipped="0" time="0.188009">
+    <testsuite name="Home_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Home_test.php" tests="1" assertions="1" errors="0" warnings="0" failures="0" skipped="0" time="0.012208">
+      <testcase name="test_index" class="Home_test" classname="Home_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Home_test.php" line="5" assertions="1" time="0.012208"/>
+    </testsuite>
+    <testsuite name="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" tests="6" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="0.060731">
+      <testcase name="test_get_users" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="8" assertions="2" time="0.008763"/>
+      <testcase name="test_create_user" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="23" assertions="1" time="0.009579"/>
+      <testcase name="test_failed_create_user" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="34" assertions="2" time="0.009703"/>
+      <testcase name="test_put_user" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="47" assertions="1" time="0.010352"/>
+      <testcase name="test_failed_put_user" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="58" assertions="2" time="0.012753"/>
+      <testcase name="test_delete_user" class="User_test" classname="User_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/controllers/Users_test.php" line="70" assertions="1" time="0.009581"/>
+    </testsuite>
+    <testsuite name="Api_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Api_model_test.php" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.026314">
+      <testcase name="test_non_valid_method" class="Api_model_test" classname="Api_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Api_model_test.php" line="12" assertions="1" time="0.009067"/>
+      <testcase name="test_success_json_response" class="Api_model_test" classname="Api_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Api_model_test.php" line="19" assertions="1" time="0.008906"/>
+      <testcase name="test_error_json_response" class="Api_model_test" classname="Api_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Api_model_test.php" line="28" assertions="1" time="0.008341"/>
+    </testsuite>
+    <testsuite name="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" tests="9" assertions="9" errors="0" warnings="0" failures="0" skipped="0" time="0.088756">
+      <testcase name="test_get_users" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="13" assertions="1" time="0.008473"/>
+      <testcase name="test_get_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="26" assertions="1" time="0.008337"/>
+      <testcase name="test_get_filtered_users" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="34" assertions="1" time="0.008877"/>
+      <testcase name="test_non_existant_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="45" assertions="1" time="0.009054"/>
+      <testcase name="test_create_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="51" assertions="1" time="0.010962"/>
+      <testcase name="test_update_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="60" assertions="1" time="0.011155"/>
+      <testcase name="test_update_non_existant_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="70" assertions="1" time="0.010655"/>
+      <testcase name="test_delete_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="77" assertions="1" time="0.010829"/>
+      <testcase name="test_delete_non_existant_user" class="Users_model_test" classname="Users_model_test" file="/Applications/XAMPP/xamppfiles/htdocs/CI_UnitTesting/application/tests/models/Users_model_test.php" line="85" assertions="1" time="0.010414"/>
     </testsuite>
   </testsuite>
 </testsuites>

@@ -48,16 +48,6 @@ class BaseApi extends \CI_Controller implements iApi
 	}
 
 	/**
-	 * Get allowed HTTP methods
-	 *
-	 * @return array $http_methods
-	 **/
-	public function getAllowedMethods(): array
-	{
-		return $this->allowedMethods;
-	}
-
-	/**
 	 * Set incoming request method
 	 * 
 	 **/
@@ -92,10 +82,8 @@ class BaseApi extends \CI_Controller implements iApi
 				break;
 			case 'PUT':
 			case 'DELETE':
-				$params = file_get_contents("php://input");
+				$params = $this->input->raw_input_stream;
 				$this->requestParams = json_decode($params, true);
-				break;
-			default:
 				break;
 		}
 	}
@@ -122,15 +110,7 @@ class BaseApi extends \CI_Controller implements iApi
 	 **/
 	public function response($data, int $httpResponseCode = 200, string $format = 'JSON')
 	{
-		switch ($format) {
-			case 'JSON':
-				$this->utils->jsonResponse($data, $httpResponseCode);
-				break;
-			default:
-				$formats = implode(', ', $this->allowedFormats);
-				throw new Exception("${format} format currently not supported. Please try one of the followings: ${formats}");
-				break;
-		}
+		$this->utils->jsonResponse($data, $httpResponseCode);
 	}
 }
 

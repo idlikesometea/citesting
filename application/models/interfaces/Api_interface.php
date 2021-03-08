@@ -7,7 +7,6 @@ interface iApi {
 	function __construct();
 	function prepareRequest(array $methods);
 	function setAllowedMethods(array $methods);
-	function getAllowedMethods();
 	function setRequestMethod();
 	function getRequestMethod();
 	function setRequestParams();

@@ -8,11 +8,12 @@
 </head>
 <body>
 	<h3>Welcome, this is a standard REST API made with CodeIgniter 3 integrating Unit Testing</h3>
+	<h4>For unit testing reports <a href="<?php echo $reportingUrl ?>" target="_blank">click here</a></h4>
 	<ul>
-		<li><code>api/v1/products GET</code></li>
-		<li><code>api/v1/products POST</code></li>
-		<li><code>api/v1/products PUT</code></li>
-		<li><code>api/v1/products DELETE</code></li>
+		<li><code>api/v1/users GET</code></li>
+		<li><code>api/v1/users POST</code></li>
+		<li><code>api/v1/users PUT</code></li>
+		<li><code>api/v1/users DELETE</code></li>
 	</ul>
 </body>
 </html>

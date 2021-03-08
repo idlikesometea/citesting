@@ -5,7 +5,8 @@ class Home extends CI_Controller
 {
   public function index()
   {
-    $this->load->view('home/index');
+		$reportingUrl = 'file://' . APPPATH . 'tests/build/coverage/index.html';
+    $this->load->view('home/index', ['reportingUrl' => $reportingUrl]);
   }
 
 }

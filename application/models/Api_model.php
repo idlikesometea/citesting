@@ -32,6 +32,7 @@ class Api_model extends CI_Model
 		header("Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization");
 		header("Access-Control-Allow-Methods: ${methods}");
 		header("Allow: ${methods}");
+		header('Content-Type: application/json');
 	}
 
 	/**
@@ -52,13 +53,7 @@ class Api_model extends CI_Model
 			$response = ['message' => $data];
 		}
 
-		$response = json_encode($response);
-
-		if (json_encode($response) !== null) {
-			echo $response;
-		} else {
-			throw new Exception('Malformed data structure.', 500);
-		}
+		echo json_encode($response);
 	}
 
 	/**

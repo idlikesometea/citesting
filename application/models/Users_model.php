@@ -26,7 +26,7 @@ class Users_model extends CI_Model
 				}
 			}
 			if (!$data) {
-				throw new Exception("User with id ${userId} not found", 404);
+				throw new Exception("User not found", 404);
 			}
 			return $data;
 		} else {
@@ -70,7 +70,7 @@ class Users_model extends CI_Model
 		}
 
 		if (!$updated) {
-			throw new Exception("User with id ${id} not found.", 404);
+			throw new Exception("User not found.", 404);
 		}
 	}
 
@@ -88,11 +88,18 @@ class Users_model extends CI_Model
 		$this->users = $users;
 
 		if (!$deleted) {
-			throw new Exception("User with id ${id} not found.", 404);
+			throw new Exception("User not found.", 404);
 		}
 	}
 
-	public function setValidations()
+	/**
+	 * Set validation
+	 *
+	 * Sets form validation for request parameters
+	 *
+	 * @return void
+	 **/
+	public function setValidations(): void
 	{
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
