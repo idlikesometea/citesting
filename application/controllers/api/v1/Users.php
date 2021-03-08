@@ -40,8 +40,6 @@ final class Users extends Api implements iHttpMethods
 	{
 		$data = $this->getRequestParams();
 		$this->form_validation->set_data($data);
-		echo json_encode($data);
-		exit;
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('lastName', 'Last name', 'required');
 		$this->form_validation->set_rules('age', 'Age', 'required');
