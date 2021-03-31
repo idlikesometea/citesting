@@ -59,7 +59,7 @@ class Api_model extends CI_Model
 	/**
 	 * Form validation errors
 	 * 
-	 * Test 1
+	 * Test 2
 	 *
 	 * @throws string Form error messages
 	 **/
