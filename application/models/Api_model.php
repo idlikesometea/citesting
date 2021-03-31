@@ -59,7 +59,7 @@ class Api_model extends CI_Model
 	/**
 	 * Form validation errors
 	 *
-	 * @throws string Form error message
+	 * @throws string Form error messages
 	 **/
 	public function formValidationError()
 	{
